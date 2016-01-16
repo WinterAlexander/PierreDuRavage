@@ -10,6 +10,8 @@ public class DesktopLauncher
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Pierre du Ravage";
+		config.fullscreen = false;
+		config.vSyncEnabled = true;
 		new LwjglApplication(new StoneGame(), config);
 	}
 }

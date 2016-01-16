@@ -7,8 +7,8 @@ package eu.spiritplayers;
  */
 public class TestPlayer extends Player
 {
-	public TestPlayer(GamePanel panel)
+	public TestPlayer(GamePanel panel, int id)
 	{
-		super(panel);
+		super(panel, id);
 	}
 }

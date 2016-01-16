@@ -20,9 +20,9 @@ public class GamePanel
 		this.game = game;
 
 		this.backgroundImage = new Texture("background.bmp");
-		this.player1 = new TestPlayer(this);
-		this.player2 = new TestPlayer(this);
-		this.player3 = new TestPlayer(this);
+		this.player1 = new TestPlayer(this, 1);
+		this.player2 = new TestPlayer(this, 2);
+		this.player3 = new TestPlayer(this, 3);
 	}
 
 	public void render(SpriteBatch batch)

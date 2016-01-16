@@ -1,5 +1,7 @@
 package eu.spiritplayers;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
@@ -46,6 +48,15 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean keyUp(int keycode)
 	{
+		if(keycode == Input.Keys.F11 && Gdx.app.getType() == Application.ApplicationType.Desktop)
+		{
+			if(Gdx.graphics.isFullscreen())
+				Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width / 2, Gdx.graphics.getDisplayMode().height / 2);
+			else
+				Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+			return true;
+		}
+
 		return false;
 	}
 

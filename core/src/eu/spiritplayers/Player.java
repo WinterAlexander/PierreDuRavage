@@ -12,12 +12,19 @@ public abstract class Player
 {
 	private GamePanel panel;
 	private Location location;
-	private int points;
+	private int points, id;
+
+	private int previousX, previousY;
 
 	private Texture[] sprites;
 
-	public Player(GamePanel panel)
+	public Player(GamePanel panel, int id)
 	{
+		this.previousX = 0;
+		this.previousY = 0;
+
+		this.id = id;
+
 		this.sprites = new Texture[3];
 		this.sprites[0] = new Texture("player_back_idle.png");
 		this.sprites[1] = new Texture("player_back_fight.png");
@@ -34,7 +41,13 @@ public abstract class Player
 		int height = (int)(1 / spriteRatio * width);
 		int x = this.location.getX(panel) - width / 2;
 		int y = this.location.getY(panel) - height / 2;
+
+		x = (x + previousX) / 2;
+		y = (y + previousY) / 2;
 		batch.draw(getSprite(), x, y, width, height);
+
+		this.previousX = x;
+		this.previousY = y;
 	}
 
 	public Location getLocation()
