@@ -60,4 +60,8 @@ public class StoneGame extends ApplicationAdapter
 		getScheduler().start();
 	}
 
+	public GamePanel getPanel()
+	{
+		return this.panel;
+	}
 }

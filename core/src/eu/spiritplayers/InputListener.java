@@ -1,5 +1,6 @@
 package eu.spiritplayers;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -24,6 +25,21 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean keyDown(int keycode)
 	{
+		switch(keycode)
+		{
+			case Input.Keys.NUM_1:
+				game.getPanel().getPlayer1().changeLocation();
+				return true;
+
+			case Input.Keys.NUM_2:
+				game.getPanel().getPlayer2().changeLocation();
+				return true;
+
+			case Input.Keys.NUM_3:
+				game.getPanel().getPlayer3().changeLocation();
+				return true;
+		}
+
 		return false;
 	}
 

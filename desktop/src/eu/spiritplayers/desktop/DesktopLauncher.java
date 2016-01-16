@@ -9,6 +9,7 @@ public class DesktopLauncher
 	public static void main (String[] arg)
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Pierre du Ravage";
 		new LwjglApplication(new StoneGame(), config);
 	}
 }

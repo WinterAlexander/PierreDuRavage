@@ -1,5 +1,6 @@
 package eu.spiritplayers;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -13,20 +14,48 @@ public abstract class Player
 	private Location location;
 	private int points;
 
+	private Texture[] sprites;
+
 	public Player(GamePanel panel)
 	{
+		this.sprites = new Texture[3];
+		this.sprites[0] = new Texture("player_back_idle.png");
+		this.sprites[1] = new Texture("player_back_fight.png");
+		this.sprites[2] = new Texture("player_front.png");
 		this.panel = panel;
 		this.location = Location.SOUTH;
 	}
 
 	public void render(SpriteBatch batch)
 	{
+		float spriteRatio = (float)getSprite().getWidth() / (float)getSprite().getHeight();
 
+		int width = getPanel().getWidth() / 10;
+		int height = (int)(1 / spriteRatio * width);
+		int x = this.location.getX(panel) - width / 2;
+		int y = this.location.getY(panel) - height / 2;
+		batch.draw(getSprite(), x, y, width, height);
 	}
 
 	public Location getLocation()
 	{
 		return location;
+	}
+
+	public Texture getSprite()
+	{
+		switch(location)
+		{
+			case SOUTH:
+				return sprites[0];
+
+			case FIGHT:
+				return sprites[1];
+
+			case NORTH:
+				return sprites[2];
+		}
+		return null;
 	}
 
 	public void setLocation(Location location)
@@ -50,5 +79,14 @@ public abstract class Player
 			return;
 
 		this.points += this.location.getPointsPerRound();
+	}
+
+	public void changeLocation()
+	{
+		int newId = location.ordinal();
+		newId++;
+		newId %= Location.values().length;
+
+		setLocation(Location.values()[newId]);
 	}
 }

@@ -8,17 +8,30 @@ package eu.spiritplayers;
  */
 public enum Location
 {
-	NORTH(1), SOUTH(0);
+	NORTH(1, 0.70f, 0.65f), SOUTH(0, 0.30f, 0.35f), FIGHT(0, 0.60f, 0.55f);
 
 	private int points;
+	private float offsetX, offsetY;
 
-	Location(int points)
+	Location(int points, float offsetX, float offsetY)
 	{
 		this.points = points;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 
 	public int getPointsPerRound()
 	{
 		return points;
+	}
+
+	public int getX(GamePanel panel)
+	{
+		return (int)(panel.getBackgroundX() + offsetX * panel.getWidth());
+	}
+
+	public int getY(GamePanel panel)
+	{
+		return (int)(panel.getBackgroundY() + offsetY * panel.getHeight());
 	}
 }
