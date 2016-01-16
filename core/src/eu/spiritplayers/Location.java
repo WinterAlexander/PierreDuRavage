@@ -34,4 +34,20 @@ public enum Location
 	{
 		return (int)(panel.getBackgroundY() + offsetY * panel.getHeight());
 	}
+
+	public int getAmountOfPlayers(GamePanel panel)
+	{
+		int amount = 0;
+
+		if(panel.getPlayer1().getLocation().equals(this))
+			amount++;
+
+		if(panel.getPlayer2().getLocation().equals(this))
+			amount++;
+
+		if(panel.getPlayer3().getLocation().equals(this))
+			amount++;
+
+		return amount;
+	}
 }
