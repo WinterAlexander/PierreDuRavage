@@ -1,2 +1,2 @@
 # PierreDuRavage
-A french game developped for spiritgames.eu
+A french game developped for spiritplayers.eu
