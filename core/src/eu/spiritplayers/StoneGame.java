@@ -17,6 +17,7 @@ public class StoneGame extends ApplicationAdapter
 	{
 		batch = new SpriteBatch();
 		scheduler = new Scheduler();
+		scheduler.start();
 
 		panel = new GamePanel(this);
 
@@ -27,6 +28,7 @@ public class StoneGame extends ApplicationAdapter
 	public void render()
 	{
 		scheduler.update();
+
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

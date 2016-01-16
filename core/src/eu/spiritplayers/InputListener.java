@@ -40,6 +40,10 @@ public class InputListener implements InputProcessor
 			case Input.Keys.NUM_3:
 				game.getPanel().getPlayer3().changeLocation();
 				return true;
+
+			case Input.Keys.NUM_4:
+				game.getPanel().getDice().roll();
+				return true;
 		}
 
 		return false;

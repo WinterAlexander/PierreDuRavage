@@ -11,4 +11,9 @@ public class TestPlayer extends Player
 	{
 		super(panel, id);
 	}
+
+	public void startPlaying()
+	{
+
+	}
 }

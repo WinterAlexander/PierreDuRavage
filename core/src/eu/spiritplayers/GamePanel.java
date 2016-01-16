@@ -14,6 +14,7 @@ public class GamePanel
 	private StoneGame game;
 	private Texture backgroundImage;
 	private Player player1, player2, player3;
+	private Dice dice;
 
 	public GamePanel(StoneGame game)
 	{
@@ -23,6 +24,7 @@ public class GamePanel
 		this.player1 = new TestPlayer(this, 1);
 		this.player2 = new TestPlayer(this, 2);
 		this.player3 = new TestPlayer(this, 3);
+		this.dice = new Dice(this, 6);
 	}
 
 	public void render(SpriteBatch batch)
@@ -31,6 +33,7 @@ public class GamePanel
 		this.player1.render(batch);
 		this.player2.render(batch);
 		this.player3.render(batch);
+		this.dice.render(batch);
 	}
 
 	public int getBackgroundX()
@@ -46,7 +49,7 @@ public class GamePanel
 	public int getWidth()
 	{
 		float screenRatio = (float)Gdx.graphics.getWidth() / (float)Gdx.graphics.getHeight();
-		float imageRatio = (float)backgroundImage.getWidth() / (float)backgroundImage.getHeight();
+		float imageRatio = getRatio();
 
 		if(screenRatio > imageRatio)
 			return (int)(imageRatio * Gdx.graphics.getHeight());
@@ -85,5 +88,16 @@ public class GamePanel
 	public Player getPlayer3()
 	{
 		return player3;
+
+	}
+
+	public Dice getDice()
+	{
+		return dice;
+	}
+
+	public StoneGame getGame()
+	{
+		return game;
 	}
 }
