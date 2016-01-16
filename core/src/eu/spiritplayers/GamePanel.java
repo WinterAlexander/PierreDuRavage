@@ -28,7 +28,32 @@ public class GamePanel
 
 	public void render(SpriteBatch batch)
 	{
-		batch.draw(backgroundImage, 0, 0, getWidth(), getHeight());
+		int x, y, width, height;
+
+		float screenRatio = (float)getWidth() / (float)getHeight();
+		float imageRatio = (float)backgroundImage.getWidth() / (float)backgroundImage.getHeight();
+
+
+		if(screenRatio < imageRatio)
+		{
+			width = getWidth();
+			height = (int)(1 / imageRatio * getWidth());
+		}
+		else if(screenRatio > imageRatio)
+		{
+			width = (int)(imageRatio * getHeight());
+			height = getHeight();
+		}
+		else
+		{
+			width = getWidth();
+			height = getHeight();
+		}
+
+		x = getWidth() / 2 - width / 2;
+		y = getHeight() / 2 - height / 2;
+
+		batch.draw(backgroundImage, x, y, width, height);
 		this.player1.render(batch);
 		this.player2.render(batch);
 		this.player3.render(batch);
