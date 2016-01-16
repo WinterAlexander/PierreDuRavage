@@ -6,22 +6,58 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class StoneGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class StoneGame extends ApplicationAdapter
+{
+	private Scheduler scheduler;
+	private GamePanel panel;
+	private SpriteBatch batch;
 	
 	@Override
-	public void create () {
+	public void create()
+	{
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		scheduler = new Scheduler();
+
+		panel = new GamePanel(this);
+
+		Gdx.input.setInputProcessor(new InputListener(this));
 	}
 
 	@Override
-	public void render () {
+	public void render()
+	{
+		scheduler.update();
+
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		panel.render(batch);
 		batch.end();
 	}
+
+	public void resize(int width, int height)
+	{
+		this.batch = new SpriteBatch();
+	}
+
+	public void dispose()
+	{
+		batch.dispose();
+	}
+
+	public Scheduler getScheduler()
+	{
+		return scheduler;
+	}
+
+	public void pause()
+	{
+		getScheduler().pause();
+	}
+
+	public void resume()
+	{
+		getScheduler().start();
+	}
+
 }
