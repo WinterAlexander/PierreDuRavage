@@ -43,8 +43,10 @@ public class Dice
 		int y = panel.getBackgroundY() + panel.getHeight() * 11 / 16 - height / 2;
 
 		if(isRolling())
-			y += height / 4d * Math.abs(Math.sin((double)(System.currentTimeMillis() - task.getLastWork()) / ((double)task.getDelay() / Math.PI)));
-
+		{
+			double delta = (double)Math.min(panel.getGame().getScheduler().getGameTimeMillis() - task.getLastWork(), task.getDelay());
+			y += height / 4d * Math.abs(Math.sin(delta / (double)task.getDelay() * Math.PI));
+		}
 		batch.draw(texture, x, y, width, height);
 	}
 
@@ -71,8 +73,8 @@ public class Dice
 
 				if(++changes > 5 && random.nextFloat() > 1 - (changes - 5) * 0.05)
 				{
-					cancel();
 					rolling = false;
+					cancel();
 				}
 
 			}

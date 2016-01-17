@@ -1,7 +1,10 @@
-package eu.spiritplayers;
+package eu.spiritplayers.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import eu.spiritplayers.GamePanel;
+import eu.spiritplayers.Location;
+import eu.spiritplayers.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,37 +17,38 @@ import java.util.List;
 public abstract class Player
 {
 	private GamePanel panel;
-	private Location location;
 	private int id;
-	private int points, health, money;
+	private String name;
 
+	private Location location;
+	private int points, health, money;
 	private List<Item> items;
 
 	private int previousX, previousY;
-
 	private Texture[] sprites;
 
-	public Player(GamePanel panel, int id)
+	public Player(GamePanel panel, int id, String name)
 	{
 		this.panel = panel;
 
 		this.id = id;
+		this.name = name;
 
-		this.previousX = 0;
-		this.previousY = 0;
-
+		this.location = Location.SOUTH;
 		this.points = 0;
 		this.health = 5;
 		this.money = 2;
-
 		this.items = new ArrayList<>();
+
+		this.previousX = -1;
+		this.previousY = -1;
 
 		this.sprites = new Texture[3];
 		this.sprites[0] = new Texture("player_back_idle.png");
 		this.sprites[1] = new Texture("player_back_fight.png");
 		this.sprites[2] = new Texture("player_front.png");
 
-		this.location = Location.SOUTH;
+
 	}
 
 	public void render(SpriteBatch batch)
@@ -58,8 +62,11 @@ public abstract class Player
 
 
 
-		x = (x + previousX) / 2;
-		y = (y + previousY) / 2;
+		if(previousX != -1)
+			x = (x + previousX) / 2;
+
+		if(previousY != -1)
+			y = (y + previousY) / 2;
 		batch.draw(getSprite(), x, y, width, height);
 
 		this.previousX = x;
@@ -107,7 +114,12 @@ public abstract class Player
 		return points;
 	}
 
-	public void addPoints()
+	public void setPoints(int points)
+	{
+		this.points = points;
+	}
+
+	public void addRoundPoints()
 	{
 		if(location == null)
 			return;

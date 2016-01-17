@@ -73,7 +73,20 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
-		return false;
+		screenY = Gdx.graphics.getHeight() - screenY;
+
+		boolean clickedOne = false;
+
+		for(ClickBox box : game.getPanel().getClickBoxes())
+		{
+			if(box.contains(screenX, screenY))
+			{
+				box.click();
+				clickedOne = true;
+			}
+		}
+
+		return clickedOne;
 	}
 
 	@Override

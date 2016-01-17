@@ -1,7 +1,9 @@
-package eu.spiritplayers;
+package eu.spiritplayers.item;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import eu.spiritplayers.GamePanel;
+import eu.spiritplayers.player.Player;
 
 /**
  * Represents an item a player can own.
@@ -19,12 +21,13 @@ public abstract class Item
 	}
 
 	public abstract Texture getTexture();
+	public abstract int getPrice();
 
-	public void render(SpriteBatch batch, int x, int y)
+	public void render(SpriteBatch batch, GamePanel panel, int x, int y)
 	{
 		float spriteRatio = (float)getTexture().getWidth() / (float)getTexture().getHeight();
 
-		int width = owner.getPanel().getWidth() / 10;
+		int width = panel.getWidth() / 10;
 		int height = (int)(1 / spriteRatio * width);
 
 		batch.draw(getTexture(), x - width / 2, y - height / 2, width, height);

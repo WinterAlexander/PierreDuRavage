@@ -50,7 +50,7 @@ public class Scheduler
 
 		for(Task task : new ArrayList<>(this.tasks))
 		{
-			int turns = (int) (((System.nanoTime() / 1_000_000 - this.pauseTime) - task.getLastWork()) / task.getDelay());
+			int turns = (int) ((getGameTimeMillis() - task.getLastWork()) / task.getDelay());
 			if(!task.isRepeating() && turns >= 1)
 			{
 				run(task);

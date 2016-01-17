@@ -1,4 +1,6 @@
-package eu.spiritplayers;
+package eu.spiritplayers.player;
+
+import eu.spiritplayers.GamePanel;
 
 /**
  * Player class used to test the GamePanel
@@ -9,11 +11,7 @@ public class TestPlayer extends Player
 {
 	public TestPlayer(GamePanel panel, int id)
 	{
-		super(panel, id);
+		super(panel, id, "TestPlayer");
 	}
 
-	public void startPlaying()
-	{
-
-	}
 }
