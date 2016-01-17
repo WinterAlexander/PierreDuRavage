@@ -1,4 +1,4 @@
-package eu.spiritplayers;
+package me.winterguardian.scheduling;
 
 
 public abstract class Task implements Runnable

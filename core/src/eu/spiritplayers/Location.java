@@ -1,5 +1,7 @@
 package eu.spiritplayers;
 
+import eu.spiritplayers.player.Player;
+
 /**
  * Represents the differents location players in the panel can stand on
  * Also gives the amount of points the player can get from it's position
@@ -39,14 +41,9 @@ public enum Location
 	{
 		int amount = 0;
 
-		if(panel.getPlayer1().getLocation().equals(this))
-			amount++;
-
-		if(panel.getPlayer2().getLocation().equals(this))
-			amount++;
-
-		if(panel.getPlayer3().getLocation().equals(this))
-			amount++;
+		for(Player player : panel.getPlayers())
+			if(player.getLocation().equals(this))
+				amount++;
 
 		return amount;
 	}

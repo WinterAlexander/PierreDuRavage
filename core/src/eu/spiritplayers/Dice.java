@@ -2,6 +2,8 @@ package eu.spiritplayers;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import eu.spiritplayers.player.Player;
+import me.winterguardian.scheduling.Task;
 
 import java.util.Random;
 
@@ -18,12 +20,15 @@ public class Dice
 	private Task task;
 
 	private Texture[] faces;
+	private boolean visible;
 
 	public Dice(GamePanel panel, int faceCount)
 	{
 		this.panel = panel;
 		this.face = 1;
 		this.task = null;
+
+		this.visible = true;
 
 		this.faces = new Texture[faceCount];
 		for(int i = 0; i < faceCount; i++)
@@ -50,7 +55,7 @@ public class Dice
 		batch.draw(texture, x, y, width, height);
 	}
 
-	public void roll()
+	public void roll(final Player player)
 	{
 		if(this.isRolling())
 			return;
@@ -65,18 +70,20 @@ public class Dice
 			public void run()
 			{
 				Random random = new Random();
+
+				if(++changes > 5 && random.nextFloat() > 1 - (changes - 5) * 0.05)
+				{
+					rolling = false;
+					panel.broadcast(player.getName() + " a obtenu un " + face + " !");
+					cancel();
+					return;
+				}
+
 				int newFace;
 				do
 					newFace = random.nextInt(faces.length) + 1;
 				while(newFace == face);
 				face = newFace;
-
-				if(++changes > 5 && random.nextFloat() > 1 - (changes - 5) * 0.05)
-				{
-					rolling = false;
-					cancel();
-				}
-
 			}
 		});
 	}
@@ -89,5 +96,15 @@ public class Dice
 	public int getFace()
 	{
 		return this.face;
+	}
+
+	public boolean isVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(boolean visible)
+	{
+		this.visible = visible;
 	}
 }

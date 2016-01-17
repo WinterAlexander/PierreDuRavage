@@ -51,6 +51,8 @@ public abstract class Player
 
 	}
 
+	public abstract void sendMessage(String message);
+
 	public void render(SpriteBatch batch)
 	{
 		float spriteRatio = (float)getSprite().getWidth() / (float)getSprite().getHeight();
@@ -92,6 +94,11 @@ public abstract class Player
 	public int getId()
 	{
 		return this.id;
+	}
+
+	public String getName()
+	{
+		return this.name;
 	}
 
 	public Location getLocation()

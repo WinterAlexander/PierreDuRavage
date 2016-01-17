@@ -27,6 +27,19 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean keyDown(int keycode)
 	{
+		if(getGame().getPanel().getChat().isOpen())
+		{
+			getGame().getPanel().getChat().input(keycode);
+			return true;
+		}
+
+
+		if(keycode == Input.Keys.ENTER)
+		{
+			getGame().getPanel().getChat().setOpen(true);
+			return true;
+		}
+
 		switch(keycode)
 		{
 			case Input.Keys.NUM_1:
@@ -42,7 +55,7 @@ public class InputListener implements InputProcessor
 				return true;
 
 			case Input.Keys.NUM_4:
-				game.getPanel().getDice().roll();
+				game.getPanel().getDice().roll(game.getPanel().getLocalPlayer());
 				return true;
 		}
 
@@ -67,6 +80,11 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean keyTyped(char character)
 	{
+		if(getGame().getPanel().getChat().isOpen())
+		{
+			getGame().getPanel().getChat().input(character);
+			return true;
+		}
 		return false;
 	}
 

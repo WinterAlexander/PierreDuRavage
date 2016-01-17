@@ -15,5 +15,9 @@ public class LocalPlayer extends Player
 		super(panel, id, name);
 	}
 
-
+	@Override
+	public void sendMessage(String message)
+	{
+		getPanel().getChat().sendMessage(message);
+	}
 }

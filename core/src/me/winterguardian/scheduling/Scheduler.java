@@ -1,4 +1,4 @@
-package eu.spiritplayers;
+package me.winterguardian.scheduling;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -18,6 +18,7 @@ public class ItemSlot
 	private float x, y;
 
 	private Item item;
+	private boolean visible;
 
 	public ItemSlot(GamePanel panel, float x, float y)
 	{
@@ -26,6 +27,7 @@ public class ItemSlot
 		this.x = x;
 		this.y = y;
 
+		this.visible = true;
 		this.item = null;
 	}
 
@@ -99,5 +101,15 @@ public class ItemSlot
 
 		this.item = null;
 		return true;
+	}
+
+	public boolean isVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(boolean visible)
+	{
+		this.visible = visible;
 	}
 }
