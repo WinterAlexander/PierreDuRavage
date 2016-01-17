@@ -3,6 +3,9 @@ package eu.spiritplayers;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a player in the GamePanel
  *
@@ -14,6 +17,8 @@ public abstract class Player
 	private Location location;
 	private int id;
 	private int points, health, money;
+
+	private List<Item> items;
 
 	private int previousX, previousY;
 
@@ -31,6 +36,8 @@ public abstract class Player
 		this.points = 0;
 		this.health = 5;
 		this.money = 2;
+
+		this.items = new ArrayList<>();
 
 		this.sprites = new Texture[3];
 		this.sprites[0] = new Texture("player_back_idle.png");
@@ -59,11 +66,6 @@ public abstract class Player
 		this.previousY = y;
 	}
 
-	public Location getLocation()
-	{
-		return location;
-	}
-
 	public Texture getSprite()
 	{
 		switch(location)
@@ -78,6 +80,16 @@ public abstract class Player
 				return sprites[2];
 		}
 		return null;
+	}
+
+	public int getId()
+	{
+		return this.id;
+	}
+
+	public Location getLocation()
+	{
+		return location;
 	}
 
 	public void setLocation(Location location)
@@ -103,6 +115,31 @@ public abstract class Player
 		this.points += this.location.getPointsPerRound();
 	}
 
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
+	public int getMoney()
+	{
+		return this.money;
+	}
+
+	public void setMoney(int money)
+	{
+		this.money = money;
+	}
+
+	public List<Item> getItems()
+	{
+		return items;
+	}
+
 	public void changeLocation()
 	{
 		int newId = location.ordinal();
@@ -111,6 +148,4 @@ public abstract class Player
 
 		setLocation(Location.values()[newId]);
 	}
-
-	public abstract void startPlaying();
 }

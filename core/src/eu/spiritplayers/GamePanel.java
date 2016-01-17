@@ -14,6 +14,7 @@ public class GamePanel
 	private StoneGame game;
 	private Texture backgroundImage;
 	private Player player1, player2, player3;
+	private ItemSlot slot1, slot2, slot3;
 	private Dice dice;
 
 	public GamePanel(StoneGame game)
@@ -24,6 +25,10 @@ public class GamePanel
 		this.player1 = new TestPlayer(this, 1);
 		this.player2 = new TestPlayer(this, 2);
 		this.player3 = new TestPlayer(this, 3);
+
+		this.slot1 = new ItemSlot(this, 0.6f, 0.1f);
+		this.slot2 = new ItemSlot(this, 0.75f, 0.1f);
+		this.slot3 = new ItemSlot(this, 0.9f, 0.1f);
 		this.dice = new Dice(this, 6);
 	}
 
@@ -33,6 +38,9 @@ public class GamePanel
 		this.player1.render(batch);
 		this.player2.render(batch);
 		this.player3.render(batch);
+		this.slot1.render(batch);
+		this.slot2.render(batch);
+		this.slot3.render(batch);
 		this.dice.render(batch);
 	}
 
