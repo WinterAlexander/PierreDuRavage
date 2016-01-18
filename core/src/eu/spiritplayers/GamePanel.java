@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import eu.spiritplayers.item.ItemSlot;
 import eu.spiritplayers.item.Sword;
+import eu.spiritplayers.menu.Button;
+import eu.spiritplayers.menu.MainMenu;
+import eu.spiritplayers.menu.Menu;
+import eu.spiritplayers.menu.MenuHeader;
 import eu.spiritplayers.player.AIPlayer;
 import eu.spiritplayers.player.LocalPlayer;
 import eu.spiritplayers.player.Player;
@@ -26,6 +30,8 @@ public class GamePanel
 
 	private Texture backgroundImage;
 
+	private Menu menu;
+
 	private Player player1, player2, player3;
 	private ItemSlot slot1, slot2, slot3;
 	private Dice dice;
@@ -42,6 +48,9 @@ public class GamePanel
 		for(int i = 0; i < FONT_SIZES.length; i++)
 			fonts[i] = new BitmapFont(Gdx.files.internal("fonts/" + FONT_SIZES[i] + ".fnt"));
 
+		this.menu = new MainMenu(this);
+		getMenu().setOpen(true);
+
 		this.backgroundImage = new Texture("background.bmp");
 		this.player1 = new LocalPlayer(this, 1, "Joueur");
 		this.player2 = new AIPlayer(this, 2);
@@ -54,6 +63,7 @@ public class GamePanel
 		this.slot1.setItem(new Sword());
 
 		this.dice = new Dice(this, 6);
+		this.dice.setVisible(true);
 		this.chat = new Chat(this);
 
 
@@ -89,6 +99,8 @@ public class GamePanel
 		this.slot3.render(batch);
 		this.dice.render(batch);
 		this.chat.render(batch);
+
+		this.menu.render(batch);
 	}
 
 	public List<ClickBox> getClickBoxes()
@@ -169,6 +181,16 @@ public class GamePanel
 	{
 		return player3;
 
+	}
+
+	public Menu getMenu()
+	{
+		return this.menu;
+	}
+
+	public void setMenu(Menu menu)
+	{
+		this.menu = menu;
 	}
 
 	public Chat getChat()

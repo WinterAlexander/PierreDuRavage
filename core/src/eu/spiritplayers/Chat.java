@@ -2,6 +2,7 @@ package eu.spiritplayers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -51,6 +52,7 @@ public class Chat
 
 
 		BitmapFont font = getPanel().getFont(lineHeight);
+		font.setColor(Color.WHITE);
 
 		//font.getData().setScale(lineHeight / font.getLineHeight());
 

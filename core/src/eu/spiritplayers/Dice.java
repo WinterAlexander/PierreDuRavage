@@ -28,7 +28,7 @@ public class Dice
 		this.face = 1;
 		this.task = null;
 
-		this.visible = true;
+		this.visible = false;
 
 		this.faces = new Texture[faceCount];
 		for(int i = 0; i < faceCount; i++)

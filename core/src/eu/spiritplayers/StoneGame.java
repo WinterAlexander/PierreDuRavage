@@ -55,6 +55,7 @@ public class StoneGame extends ApplicationAdapter
 	public void pause()
 	{
 		getScheduler().pause();
+		panel.getMenu().setOpen(true);
 	}
 
 	public void resume()

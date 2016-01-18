@@ -33,6 +33,11 @@ public class InputListener implements InputProcessor
 			return true;
 		}
 
+		if(keycode == Input.Keys.ESCAPE)
+		{
+			game.getPanel().getMenu().setOpen(!game.getPanel().getMenu().isOpen());
+			return true;
+		}
 
 		if(keycode == Input.Keys.ENTER)
 		{
@@ -91,6 +96,18 @@ public class InputListener implements InputProcessor
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button)
+	{
+		if(game.getPanel().getMenu().isOpen())
+		{
+			game.getPanel().getMenu().onClick(screenX, screenY);
+			return true;
+		}
+
 		screenY = Gdx.graphics.getHeight() - screenY;
 
 		boolean clickedOne = false;
@@ -105,12 +122,6 @@ public class InputListener implements InputProcessor
 		}
 
 		return clickedOne;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button)
-	{
-		return false;
 	}
 
 	@Override
