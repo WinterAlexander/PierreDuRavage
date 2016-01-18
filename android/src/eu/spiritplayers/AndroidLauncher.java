@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import eu.spiritplayers.pdr.PierreDuRavage;
 
 public class AndroidLauncher extends AndroidApplication
 {
@@ -12,6 +13,6 @@ public class AndroidLauncher extends AndroidApplication
 	{
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new StoneGame(), config);
+		initialize(new PierreDuRavage(), config);
 	}
 }

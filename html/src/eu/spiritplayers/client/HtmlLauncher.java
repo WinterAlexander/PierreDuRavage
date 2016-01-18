@@ -3,7 +3,7 @@ package eu.spiritplayers.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import eu.spiritplayers.StoneGame;
+import eu.spiritplayers.pdr.PierreDuRavage;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -14,6 +14,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new StoneGame();
+                return new PierreDuRavage();
         }
 }

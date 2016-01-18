@@ -2,7 +2,7 @@ package eu.spiritplayers.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import eu.spiritplayers.StoneGame;
+import eu.spiritplayers.pdr.PierreDuRavage;
 
 import java.awt.*;
 
@@ -18,6 +18,6 @@ public class DesktopLauncher
 		config.vSyncEnabled = true;
 		config.width = screenSize.width * 2 / 3;
 		config.height = screenSize.height * 2 / 3;
-		new LwjglApplication(new StoneGame(), config);
+		new LwjglApplication(new PierreDuRavage(), config);
 	}
 }
