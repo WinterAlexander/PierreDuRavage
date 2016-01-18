@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import eu.spiritplayers.pdr.panel.ClickBox;
 
 /**
  * Handles all the program input

@@ -4,6 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import eu.spiritplayers.pdr.game.Demo;
+import eu.spiritplayers.pdr.game.Game;
+import eu.spiritplayers.pdr.panel.GamePanel;
 import me.winterguardian.scheduling.Scheduler;
 
 public class PierreDuRavage extends ApplicationAdapter
