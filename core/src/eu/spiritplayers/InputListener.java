@@ -45,25 +45,6 @@ public class InputListener implements InputProcessor
 			return true;
 		}
 
-		switch(keycode)
-		{
-			case Input.Keys.NUM_1:
-				game.getPanel().getPlayer1().changeLocation();
-				return true;
-
-			case Input.Keys.NUM_2:
-				game.getPanel().getPlayer2().changeLocation();
-				return true;
-
-			case Input.Keys.NUM_3:
-				game.getPanel().getPlayer3().changeLocation();
-				return true;
-
-			case Input.Keys.NUM_4:
-				game.getPanel().getDice().roll(game.getPanel().getLocalPlayer());
-				return true;
-		}
-
 		return false;
 	}
 

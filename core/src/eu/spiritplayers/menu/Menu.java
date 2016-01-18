@@ -112,7 +112,7 @@ public class Menu
 			int x = Gdx.graphics.getWidth() / 2 - buttonWidth / 2;
 			int y = Gdx.graphics.getHeight() / 2 + height / 2 - buttonHeight * (button.getSlot() + 1);
 			
-			if(Gdx.input.getX() >= x && Gdx.input.getX() <= x + buttonWidth && (Gdx.graphics.getHeight() - Gdx.input.getY()) >= y && (Gdx.graphics.getHeight() - Gdx.input.getY()) <= y + buttonHeight)
+			if(mouseX >= x && mouseX <= x + buttonWidth && (Gdx.graphics.getHeight() - mouseY) >= y && (Gdx.graphics.getHeight() - mouseY) <= y + buttonHeight)
 				button.onClick();
 		}
 	}

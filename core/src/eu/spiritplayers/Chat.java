@@ -1,5 +1,6 @@
 package eu.spiritplayers;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -39,16 +40,13 @@ public class Chat
 
 	public void render(SpriteBatch batch)
 	{
+		ClickBox box = getClickBox();
 
-		int width = getPanel().getWidth() / 2;
-		int height = getPanel().getHeight() / 5;
+		int lineHeight = box.getHeight() / 6;
 
-		int lineHeight = height / 6;
 
-		int boxX = getPanel().getBackgroundX() + getPanel().getWidth() / 2 - width / 2;
-		int boxY = getPanel().getBackgroundY();
 
-		batch.draw(background, boxX, boxY, width, height);
+		batch.draw(background, box.getX(), box.getY(), box.getWidth(), box.getHeight());
 
 
 		BitmapFont font = getPanel().getFont(lineHeight);
@@ -58,18 +56,41 @@ public class Chat
 
 		if(this.isOpen())
 		{
-			font.draw(batch, StringUtil.insert(content, cursor, '|'), boxX, boxY + lineHeight / 2 + font.getCapHeight() / 2);
+			font.draw(batch, StringUtil.insert(content, cursor, '|'), box.getX(), box.getY() + lineHeight / 2 + font.getCapHeight() / 2);
 		}
 
 		for(int i = this.chatHistory.size() - 1; i >= this.chatHistory.size() - 5 && i >= 0; i--)
 		{
-			font.draw(batch, this.chatHistory.get(i), boxX, boxY + lineHeight * (this.chatHistory.size() - i) + lineHeight / 2 + font.getCapHeight() / 2);
+			font.draw(batch, this.chatHistory.get(i), box.getX(), box.getY() + lineHeight * (this.chatHistory.size() - i) + lineHeight / 2 + font.getCapHeight() / 2);
 		}
 	}
 
 	public void sendMessage(String message)
 	{
 		this.chatHistory.add(message);
+	}
+
+	public ClickBox getClickBox()
+	{
+		int width = getPanel().getWidth() / 2;
+		int height = getPanel().getHeight() / 5;
+
+		int boxX = getPanel().getBackgroundX() + getPanel().getWidth() / 2 - width / 2;
+		int boxY = getPanel().getBackgroundY();
+
+		return new ClickBox(boxX, boxY, width, height)
+		{
+			@Override
+			public void click()
+			{
+				setOpen(true);
+				if(Gdx.app.getType().equals(Application.ApplicationType.Android) ||
+						Gdx.app.getType().equals(Application.ApplicationType.iOS))
+				{
+					Gdx.input.setOnscreenKeyboardVisible(true);
+				}
+			}
+		};
 	}
 
 

@@ -88,6 +88,12 @@ public class Dice
 		});
 	}
 
+	public void stop()
+	{
+		this.task.cancel();
+		this.rolling = false;
+	}
+
 	public boolean isRolling()
 	{
 		return this.rolling;

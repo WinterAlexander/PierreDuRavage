@@ -14,6 +14,7 @@ import eu.spiritplayers.player.AIPlayer;
 import eu.spiritplayers.player.LocalPlayer;
 import eu.spiritplayers.player.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,10 +33,13 @@ public class GamePanel
 
 	private Menu menu;
 
-	private Player player1, player2, player3;
+	private List<Player> players;
 	private ItemSlot slot1, slot2, slot3;
 	private Dice dice;
 	private Chat chat;
+
+	private int minimumPlayers, maximumPlayers;
+	private boolean started;
 
 	private BitmapFont[] fonts;
 
@@ -51,22 +55,20 @@ public class GamePanel
 		this.menu = new MainMenu(this);
 		getMenu().setOpen(true);
 
+		this.minimumPlayers = 3;
+		this.maximumPlayers = 3;
+
+		this.started = false;
+
 		this.backgroundImage = new Texture("background.bmp");
-		this.player1 = new LocalPlayer(this, 1, "Joueur");
-		this.player2 = new AIPlayer(this, 2);
-		this.player3 = new AIPlayer(this, 3);
+		this.players = new ArrayList<>();
 
 		this.slot1 = new ItemSlot(this, 0.7f, 0.30f);
 		this.slot2 = new ItemSlot(this, 0.8f, 0.30f);
 		this.slot3 = new ItemSlot(this, 0.9f, 0.30f);
 
-		this.slot1.setItem(new Sword());
-
 		this.dice = new Dice(this, 6);
-		this.dice.setVisible(true);
 		this.chat = new Chat(this);
-
-
 	}
 
 	public BitmapFont getFont(int lineHeight)
@@ -91,9 +93,8 @@ public class GamePanel
 	public void render(SpriteBatch batch)
 	{
 		batch.draw(backgroundImage, getBackgroundX(), getBackgroundY(), getWidth(), getHeight());
-		this.player1.render(batch);
-		this.player2.render(batch);
-		this.player3.render(batch);
+		for(Player player : getPlayers())
+			player.render(batch);
 		this.slot1.render(batch);
 		this.slot2.render(batch);
 		this.slot3.render(batch);
@@ -110,7 +111,95 @@ public class GamePanel
 
 	public List<Player> getPlayers()
 	{
-		return Arrays.asList(this.player1, this.player2, this.player3);
+		return players;
+	}
+
+	public void prepare(GameType type)
+	{
+		switch(type)
+		{
+			case SOLO:
+				join(new LocalPlayer(this, 1, "Joueur"));
+				join(new AIPlayer(this, 2));
+				join(new AIPlayer(this, 3));
+				return;
+			case MULTI:
+		}
+	}
+
+	public boolean join(Player player)
+	{
+		for(Player current : getPlayers())
+			if(current.getName().equalsIgnoreCase(player.getName()))
+			{
+				player.sendMessage("Un joueur avec ce nom est déjà en jeu.");
+				return false;
+			}
+
+		if(getPlayers().size() >= getMaximumPlayers())
+		{
+			player.sendMessage("Cette partie est remplie à son maximum.");
+			return false;
+		}
+
+		if(isStarted())
+		{
+			player.sendMessage("La partie est déjà commencée.");
+			return false;
+		}
+
+		getPlayers().add(player);
+		broadcast(player.getName() + " a rejoint la partie.");
+
+		if(getPlayers().size() >= getMinimumPlayers())
+			start();
+
+		return true;
+	}
+
+	public void leave(Player player)
+	{
+		if(!getPlayers().contains(player))
+			return;
+
+		getPlayers().remove(player);
+		broadcast(player.getName() + " a quitté la partie.");
+
+		if(getPlayers().size() < getMinimumPlayers())
+			cancel();
+
+	}
+
+	public void start()
+	{
+		this.started = true;
+		broadcast("La partie va désormais commencer.");
+	}
+
+	public void cancel()
+	{
+		this.started = false;
+		broadcast("La partie a été annulée.");
+
+		this.dice.stop();
+		this.dice.setVisible(false);
+
+		for(Player player : getPlayers())
+			player.setLocation(Location.SOUTH);
+
+		this.slot1.setItem(null);
+		this.slot2.setItem(null);
+		this.slot3.setItem(null);
+	}
+
+	public boolean canBuy(Player player)
+	{
+		return false;
+	}
+
+	public boolean isStarted()
+	{
+		return started;
 	}
 
 	public void broadcast(String message)
@@ -166,23 +255,6 @@ public class GamePanel
 
 		return null;
 	}
-
-	public Player getPlayer1()
-	{
-		return player1;
-	}
-
-	public Player getPlayer2()
-	{
-		return player2;
-	}
-
-	public Player getPlayer3()
-	{
-		return player3;
-
-	}
-
 	public Menu getMenu()
 	{
 		return this.menu;
@@ -206,5 +278,25 @@ public class GamePanel
 	public StoneGame getGame()
 	{
 		return game;
+	}
+
+	public int getMinimumPlayers()
+	{
+		return minimumPlayers;
+	}
+
+	public void setMinimumPlayers(int minimumPlayers)
+	{
+		this.minimumPlayers = minimumPlayers;
+	}
+
+	public int getMaximumPlayers()
+	{
+		return maximumPlayers;
+	}
+
+	public void setMaximumPlayers(int maximumPlayers)
+	{
+		this.maximumPlayers = maximumPlayers;
 	}
 }

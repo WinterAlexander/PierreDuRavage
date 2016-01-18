@@ -58,7 +58,15 @@ public class ItemSlot
 				if(!hasItem())
 					return;
 
-				buy(getPanel().getLocalPlayer());
+				Player player = getPanel().getLocalPlayer();
+
+				if(!getPanel().canBuy(player))
+				{
+					player.sendMessage("Vous ne pouvez pas acheter d'items pour le moment.");
+					return;
+				}
+
+				buy(player);
 			}
 		};
 	}

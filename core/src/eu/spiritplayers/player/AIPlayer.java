@@ -16,7 +16,7 @@ public class AIPlayer extends Player
 
 	public AIPlayer(GamePanel panel, int id)
 	{
-		super(panel, id, NAMES.next());
+		super(panel, id, "IA_" + NAMES.next());
 	}
 
 	@Override

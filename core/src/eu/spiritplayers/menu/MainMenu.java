@@ -2,6 +2,7 @@ package eu.spiritplayers.menu;
 
 import com.badlogic.gdx.Gdx;
 import eu.spiritplayers.GamePanel;
+import eu.spiritplayers.GameType;
 
 /**
  * 
@@ -21,6 +22,7 @@ public class MainMenu extends Menu
 			{
 				setOpen(false);
 				getPanel().setMenu(new SoloGameMenu(getPanel()));
+				getPanel().prepare(GameType.SOLO);
 			}
 
 		}));
