@@ -87,6 +87,9 @@ public abstract class Dice
 
 	public void stop()
 	{
+		if(!this.isRolling())
+			return;
+
 		this.task.cancel();
 		this.rolling = false;
 	}

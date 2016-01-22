@@ -1,4 +1,4 @@
-package me.winterguardian.sorting;
+package me.winterguardian.selector;
 
 import java.util.Collection;
 

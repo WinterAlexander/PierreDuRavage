@@ -20,7 +20,7 @@ public enum GameType
 	{
 		public State getBaseState(Game game)
 		{
-			return new StandbyState(game, new InitState(game));
+			return new StandbyState(game, new OrderDetermineState(game));
 		}
 	},
 
@@ -28,7 +28,7 @@ public enum GameType
 	{
 		public State getBaseState(Game game)
 		{
-			return new StandbyState(game, new WaitingState(game, 15, new InitState(game)));
+			return new StandbyState(game, new WaitingState(game, 15, new OrderDetermineState(game)));
 		}
 	},
 

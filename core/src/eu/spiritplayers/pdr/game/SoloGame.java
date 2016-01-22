@@ -18,8 +18,8 @@ public class SoloGame extends Game
 	@Override
 	public void start()
 	{
-		join(new LocalPlayer(getApp().getPanel(), 1, "Joueur"));
-		join(new AIPlayer(getApp().getPanel(), 2));
-		join(new AIPlayer(getApp().getPanel(), 3));
+		join(new LocalPlayer(getApp().getPanel(), "Joueur"));
+		join(new AIPlayer(getApp().getPanel()));
+		join(new AIPlayer(getApp().getPanel()));
 	}
 }

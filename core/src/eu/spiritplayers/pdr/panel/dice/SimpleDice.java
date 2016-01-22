@@ -58,7 +58,7 @@ public class SimpleDice extends eu.spiritplayers.pdr.panel.dice.Dice
 			@Override
 			public void click()
 			{
-
+				roll(getPanel().getLocalPlayer());
 			}
 		};
 	}

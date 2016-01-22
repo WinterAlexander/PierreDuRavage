@@ -1,7 +1,7 @@
 package eu.spiritplayers.pdr.panel.player;
 
 import eu.spiritplayers.pdr.panel.GamePanel;
-import me.winterguardian.sorting.AntiRecursiveRandomSelector;
+import me.winterguardian.selector.AntiRecursiveRandomSelector;
 
 import java.util.Arrays;
 
@@ -14,9 +14,9 @@ public class AIPlayer extends Player
 {
 	private static AntiRecursiveRandomSelector<String> NAMES = new AntiRecursiveRandomSelector<>(Arrays.asList("Jean", "Christophe", "Simon", "Pierre", "Philippe", "Claude", "Claire", "Annie", "Laurence", "Marie", "Anaïs", "Amélia", "John", "Bob"));
 
-	public AIPlayer(GamePanel panel, int id)
+	public AIPlayer(GamePanel panel)
 	{
-		super(panel, id, "IA_" + NAMES.next());
+		super(panel, "IA_" + NAMES.next());
 	}
 
 	@Override

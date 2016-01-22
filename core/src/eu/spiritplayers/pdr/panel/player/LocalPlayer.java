@@ -10,9 +10,9 @@ import eu.spiritplayers.pdr.panel.GamePanel;
  */
 public class LocalPlayer extends Player
 {
-	public LocalPlayer(GamePanel panel, int id, String name)
+	public LocalPlayer(GamePanel panel, String name)
 	{
-		super(panel, id, name);
+		super(panel, name);
 	}
 
 	@Override

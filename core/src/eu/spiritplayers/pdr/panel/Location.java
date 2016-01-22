@@ -2,6 +2,9 @@ package eu.spiritplayers.pdr.panel;
 
 import eu.spiritplayers.pdr.panel.player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the differents location players in the panel can stand on
  * Also gives the amount of points the player can get from it's position
@@ -37,14 +40,14 @@ public enum Location
 		return (int)(panel.getBackgroundY() + offsetY * panel.getHeight());
 	}
 
-	public int getAmountOfPlayers(GamePanel panel)
+	public List<Player> getPlayersHere(GamePanel panel)
 	{
-		int amount = 0;
+		List<Player> playersList = new ArrayList<>();
 
 		for(Player player : panel.getPlayers())
 			if(player.getLocation().equals(this))
-				amount++;
+				playersList.add(player);
 
-		return amount;
+		return playersList;
 	}
 }

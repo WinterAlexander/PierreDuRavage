@@ -2,8 +2,10 @@ package eu.spiritplayers.pdr.panel.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import eu.spiritplayers.pdr.panel.ClickBox;
 import eu.spiritplayers.pdr.panel.GamePanel;
 import eu.spiritplayers.pdr.panel.Location;
+import eu.spiritplayers.pdr.panel.dice.Dice;
 import eu.spiritplayers.pdr.panel.item.Item;
 
 import java.util.ArrayList;
@@ -17,21 +19,21 @@ import java.util.List;
 public abstract class Player
 {
 	private GamePanel panel;
-	private int id;
+	private int order;
 	private String name;
 
 	private Location location;
 	private int points, health, money;
 	private List<Item> items;
 
-	private int previousX, previousY;
 	private Texture[] sprites;
+	private Dice dice;
 
-	public Player(GamePanel panel, int id, String name)
+	public Player(GamePanel panel, String name)
 	{
 		this.panel = panel;
 
-		this.id = id;
+		this.order = -1;
 		this.name = name;
 
 		this.location = Location.SOUTH;
@@ -40,39 +42,24 @@ public abstract class Player
 		this.money = 2;
 		this.items = new ArrayList<>();
 
-		this.previousX = -1;
-		this.previousY = -1;
-
 		this.sprites = new Texture[3];
 		this.sprites[0] = new Texture("player_back_idle.png");
 		this.sprites[1] = new Texture("player_back_fight.png");
 		this.sprites[2] = new Texture("player_front.png");
 
-
+		this.dice = null;
 	}
 
 	public abstract void sendMessage(String message);
 
 	public void render(SpriteBatch batch)
 	{
-		float spriteRatio = (float)getSprite().getWidth() / (float)getSprite().getHeight();
+		ClickBox box = getClickBox();
 
-		int width = getPanel().getWidth() / 10;
-		int height = (int)(1 / spriteRatio * width);
-		int x = this.location.getX(panel) - width / 2;
-		int y = this.location.getY(panel) - height / 2;
+		batch.draw(getSprite(), box.getX(), box.getY(), box.getWidth(), box.getHeight());
 
-
-
-		if(previousX != -1)
-			x = (x + previousX) / 2;
-
-		if(previousY != -1)
-			y = (y + previousY) / 2;
-		batch.draw(getSprite(), x, y, width, height);
-
-		this.previousX = x;
-		this.previousY = y;
+		if(getDice() != null)
+			getDice().render(batch);
 	}
 
 	public Texture getSprite()
@@ -91,10 +78,55 @@ public abstract class Player
 		return null;
 	}
 
-	public int getId()
+	public ClickBox getClickBox()
 	{
-		return this.id;
+		float spriteRatio = (float)getSprite().getWidth() / (float)getSprite().getHeight();
+
+		int width = getPanel().getWidth() / 10;
+		int height = (int)(1 / spriteRatio * width);
+		int x = this.location.getX(panel) - width / 2;
+		int y = this.location.getY(panel) - height / 2;
+
+		List<Player> players = this.location.getPlayersHere(getPanel());
+
+		int order = 1;
+
+		for(Player player : players)
+			if(player != this && player.getOrder() < this.getOrder())
+				order++;
+
+
+		if(players.size() == 2)
+		{
+			if(order == 1)
+				x -= width * 3 / 4;
+			else
+				x += width * 3 / 4;
+		}
+		else if(players.size() == 3 && order != 2)
+		{
+			if(order == 1)
+				x -= width * 3 / 2;
+			else
+				x += width * 3 / 2;
+		}
+
+		return new ClickBox(x, y, width, height)
+		{
+			@Override
+			public void click()
+			{
+
+			}
+		};
 	}
+
+	public int getOrder()
+	{
+		return this.order;
+	}
+
+	public void setOrder(int order) { this.order = order;}
 
 	public String getName()
 	{
@@ -159,12 +191,15 @@ public abstract class Player
 		return items;
 	}
 
-	public void changeLocation()
+	public Dice getDice()
 	{
-		int newId = location.ordinal();
-		newId++;
-		newId %= Location.values().length;
-
-		setLocation(Location.values()[newId]);
+		return dice;
 	}
+
+	public void setDice(Dice playerDice)
+	{
+		this.dice = playerDice;
+	}
+
+
 }

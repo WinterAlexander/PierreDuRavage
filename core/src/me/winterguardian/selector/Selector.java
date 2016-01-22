@@ -1,4 +1,4 @@
-package me.winterguardian.sorting;
+package me.winterguardian.selector;
 
 public abstract class Selector<A>
 {

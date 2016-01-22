@@ -18,6 +18,7 @@ public abstract class Game
 	private GameType type;
 	private State state;
 	private int minimumPlayers, maximumPlayers;
+	private int baseOrder;
 
 	public Game(PierreDuRavage app, GameType type, int minimumPlayers, int maximumPlayers)
 	{
@@ -27,6 +28,8 @@ public abstract class Game
 		this.minimumPlayers = minimumPlayers;
 		this.maximumPlayers = maximumPlayers;
 
+		this.baseOrder = 1;
+
 		this.state = type.getBaseState(this);
 	}
 
@@ -34,6 +37,9 @@ public abstract class Game
 
 	public boolean join(Player player)
 	{
+		player.setOrder(baseOrder);
+		baseOrder++;
+
 		return getState().join(player);
 	}
 
