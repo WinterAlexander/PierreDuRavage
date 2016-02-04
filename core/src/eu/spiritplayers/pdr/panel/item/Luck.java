@@ -9,15 +9,28 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Luck extends Item
 {
+	private Texture texture;
+
+	public Luck()
+	{
+		this.texture = new Texture("item_sword.png");
+	}
+
+	@Override
+	public String getName()
+	{
+		return "Luck";
+	}
+
 	@Override
 	public int getPrice()
 	{
-		return 5;
+		return 1;
 	}
 
 	@Override
 	public Texture getTexture()
 	{
-		return null;
+		return this.texture;
 	}
 }

@@ -20,6 +20,7 @@ public abstract class Item
 		this.owner = null;
 	}
 
+	public abstract String getName();
 	public abstract Texture getTexture();
 	public abstract int getPrice();
 

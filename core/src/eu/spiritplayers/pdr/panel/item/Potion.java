@@ -9,15 +9,28 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Potion extends Item
 {
+	private Texture texture;
+
+	public Potion()
+	{
+		this.texture = new Texture("item_sword.png");
+	}
+
+	@Override
+	public String getName()
+	{
+		return "Potion";
+	}
+
 	@Override
 	public int getPrice()
 	{
-		return 5;
+		return 1;
 	}
 
 	@Override
 	public Texture getTexture()
 	{
-		return null;
+		return this.texture;
 	}
 }

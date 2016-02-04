@@ -17,6 +17,12 @@ public class Sword extends Item
 	}
 
 	@Override
+	public String getName()
+	{
+		return "Sword";
+	}
+
+	@Override
 	public int getPrice()
 	{
 		return 1;

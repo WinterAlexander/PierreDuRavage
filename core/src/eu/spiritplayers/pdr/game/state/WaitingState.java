@@ -1,6 +1,7 @@
 package eu.spiritplayers.pdr.game.state;
 
 import eu.spiritplayers.pdr.game.Game;
+import eu.spiritplayers.pdr.panel.player.Player;
 import me.winterguardian.scheduling.Task;
 
 /**
@@ -73,5 +74,11 @@ public class WaitingState extends GameState
 			secondsString = seconds + " seconde" + (seconds > 1 ? "s" : "") + " ";
 
 		getCurrentGame().broadcast("La partie commence dans " + minutesString + secondsString + ".");
+	}
+
+	@Override
+	public boolean canBuy(Player player)
+	{
+		return false;
 	}
 }

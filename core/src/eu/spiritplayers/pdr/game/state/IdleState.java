@@ -45,4 +45,10 @@ public class IdleState implements State
 	{
 
 	}
+
+	@Override
+	public boolean canBuy(Player player)
+	{
+		return false;
+	}
 }

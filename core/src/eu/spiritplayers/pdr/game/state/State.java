@@ -15,4 +15,6 @@ public interface State
 	void leave(Player player);
 	void start();
 	void cancel();
+
+	boolean canBuy(Player player);
 }

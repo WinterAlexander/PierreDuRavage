@@ -76,4 +76,10 @@ public class StandbyState implements State
 		getCurrentGame().setState(next);
 		getCurrentGame().getState().start();
 	}
+
+	@Override
+	public boolean canBuy(Player player)
+	{
+		return false;
+	}
 }

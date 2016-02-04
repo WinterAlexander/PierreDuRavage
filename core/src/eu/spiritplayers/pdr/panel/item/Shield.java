@@ -9,19 +9,28 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Shield extends Item
 {
+	private Texture texture;
+
 	public Shield()
 	{
+		this.texture = new Texture("item_sword.png");
+	}
+
+	@Override
+	public String getName()
+	{
+		return "Shield";
 	}
 
 	@Override
 	public int getPrice()
 	{
-		return 5;
+		return 1;
 	}
 
 	@Override
 	public Texture getTexture()
 	{
-		return null;
+		return this.texture;
 	}
 }

@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import eu.spiritplayers.pdr.panel.ClickBox;
 import eu.spiritplayers.pdr.panel.GamePanel;
 import eu.spiritplayers.pdr.panel.player.Player;
+import me.winterguardian.scheduling.Task;
+
+import java.util.Random;
 
 /**
  * Represents a slot for an item on the GamePanel
@@ -18,7 +21,7 @@ public class ItemSlot
 	private float x, y;
 
 	private Item item;
-	private boolean visible;
+	private boolean visible, autoRefill;
 
 	public ItemSlot(GamePanel panel, float x, float y)
 	{
@@ -28,6 +31,7 @@ public class ItemSlot
 		this.y = y;
 
 		this.visible = false;
+		this.autoRefill = true;
 		this.item = null;
 	}
 
@@ -63,13 +67,23 @@ public class ItemSlot
 
 				Player player = getPanel().getLocalPlayer();
 
-				if(!getPanel().canBuy(player))
+				if(!getPanel().getApp().getGame().getState().canBuy(player))
 				{
 					player.sendMessage("Vous ne pouvez pas acheter d'items pour le moment.");
 					return;
 				}
 
-				buy(player);
+				if(!buy(player) || !autoRefill)
+					return;
+
+				getPanel().getApp().getScheduler().addTask(new Task(1000, false)
+				{
+					@Override
+					public void run()
+					{
+						refill();
+					}
+				});
 			}
 		};
 	}
@@ -104,14 +118,49 @@ public class ItemSlot
 
 	public boolean buy(Player player)
 	{
-		if(player.getMoney() < this.getPrice() || this.item == null || this.getPrice() < 0)
+		if(this.item == null || this.getPrice() < 0)
 			return false;
+
+		if(player.getMoney() < this.getPrice())
+		{
+			player.sendMessage("Vous n'avez pas assez d'argent !");
+			return false;
+		}
 
 		player.setMoney(player.getMoney() - getPrice());
 		player.getItems().add(this.item);
 
+		getPanel().broadcast(player.getName() + " a acheté un " + item.getName() + " pour " + getPrice() + " pièces.");
+
 		this.item = null;
 		return true;
+	}
+
+	public void refill()
+	{
+
+		if(hasItem())
+			return;
+
+		switch(new Random().nextInt(4))
+		{
+			case 0:
+				item = new Luck();
+				return;
+
+			case 1:
+				item = new Potion();
+				return;
+
+			case 2:
+				item = new Shield();
+				return;
+
+			case 3:
+				item = new Sword();
+		}
+
+
 	}
 
 	public boolean isVisible()

@@ -120,11 +120,6 @@ public class GamePanel
 		return players;
 	}
 
-	public boolean canBuy(Player player)
-	{
-		return false;
-	}
-
 	public void broadcast(String message)
 	{
 		for(Player player : getPlayers())
@@ -178,6 +173,25 @@ public class GamePanel
 
 		return null;
 	}
+
+	public void enableShop()
+	{
+		getItemSlot1().setVisible(true);
+		getItemSlot2().setVisible(true);
+		getItemSlot3().setVisible(true);
+
+		getItemSlot1().refill();
+		getItemSlot2().refill();
+		getItemSlot3().refill();
+	}
+
+	public void disableShop()
+	{
+		getItemSlot1().setVisible(false);
+		getItemSlot2().setVisible(false);
+		getItemSlot3().setVisible(false);
+	}
+
 	public Menu getMenu()
 	{
 		return this.menu;
@@ -202,7 +216,6 @@ public class GamePanel
 	{
 		return game;
 	}
-
 
 	public ItemSlot getItemSlot1()
 	{

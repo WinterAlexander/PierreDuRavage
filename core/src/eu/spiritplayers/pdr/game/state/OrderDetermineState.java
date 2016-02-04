@@ -66,11 +66,21 @@ public class OrderDetermineState extends GameState
 				public void run()
 				{
 					setOrder();
-					//getCurrentGame().setState();
-					//getCurrentGame().getState().start();
 				}
 			});
 
+			getCurrentGame().getApp().getScheduler().addTask(new Task(1000, false)
+			{
+				@Override
+				public void run()
+				{
+					for(Player player : getCurrentGame().getPlayers())
+						player.getDice().setVisible(false);
+
+					getCurrentGame().setState(new PlayState(getCurrentGame()));
+					getCurrentGame().getState().start();
+				}
+			});
 		}
 
 	}
@@ -91,7 +101,12 @@ public class OrderDetermineState extends GameState
 		for(int i = 0; i < players.length; i++)
 			players[i].setOrder(3 - i);
 
-		getCurrentGame().broadcast(players[0].getName() + " sera le premier à jouer suivi de " + players[1].getName() + " et " + players[2].getName() + " !");
+		getCurrentGame().broadcast(players[2].getName() + " sera le premier à jouer suivi de " + players[1].getName() + " et " + players[0].getName() + " !");
 	}
 
+	@Override
+	public boolean canBuy(Player player)
+	{
+		return false;
+	}
 }
